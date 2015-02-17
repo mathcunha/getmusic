@@ -11,11 +11,16 @@ type Streamer interface {
 }
 
 func GetPlaylist(url string, s Streamer) ([]Music, error) {
+	return s.GetPlaylistService(GetUrl(url))
+
+}
+
+func GetUrl(url string) []byte {
 	resp, err := http.Get(url)
 
 	if err != nil {
 		log.Printf("error calling service at %v  [%v]", url, err)
-		return nil, err
+		return nil
 	}
 
 	defer resp.Body.Close()
@@ -24,9 +29,9 @@ func GetPlaylist(url string, s Streamer) ([]Music, error) {
 
 	if err != nil {
 		log.Printf("error reading body at %v  [%v]", url, err)
-		return nil, err
+		return nil
 	}
 
-	return s.GetPlaylistService(body)
+	return body
 
 }

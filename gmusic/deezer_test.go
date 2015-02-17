@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestMonitor(t *testing.T) {
+func TestDeezerPlaylist(t *testing.T) {
 	s := Deezer{}
 
 	music, err := GetPlaylist("http://www.deezer.com/playlist/1127687863", &s)
