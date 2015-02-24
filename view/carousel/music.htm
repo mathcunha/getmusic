@@ -132,7 +132,7 @@
 		      </div>
 		      <div class="input-group">
 			      <span class="input-group-addon" id="basic-addon2">http://deezer.com/playlist/</span>
-			      <input type="text" class="form-control" placeholder="Playlist's id" aria-describedby="basic-addon2">
+			      <input type="text" class="form-control" placeholder="Playlist's id" id="single" aria-describedby="basic-addon2">
 			      <span class="input-group-btn"><button type="button" class="btn btn-default" id="button_search">
 				                        <span class="glyphicon glyphicon-music" aria-hidden="true"></span> Go!
 						          </button></span>
@@ -153,7 +153,7 @@
 						      <th>Username</th>
 					      </tr>
 				      </thead>
-				      <tbody>
+				      <tbody id="tbresult">
 				      <tr>
 					      <th scope="row">1</th>
 					      <td>Mark</td>
@@ -203,6 +203,15 @@
 		function(){
 			$("#alert_success").toggleClass("hidden");
 			$("#search_result").toggleClass("hidden");
+
+			$("#tbresult").empty();
+
+			$.get( "/api/deezer/playlist/"+$( "#single" ).val(), 
+				function( data ) {
+					jQuery.each( data, function( i, val ) {
+						$("#tbresult").append("<tr><th scope='row'>"+i+"</th><td>"+val.Name+"</td><td>"+val.Artist+"</td><td>"+val.Album+"</td></tr>")
+					});
+				}, "json" );
 		 }
 	);
     </script>

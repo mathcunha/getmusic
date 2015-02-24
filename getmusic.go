@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/mathcunha/getmusic/gmusic"
 	"net/http"
 )
 
 func main() {
 	http.HandleFunc("/view/", staticHandler)
+	http.HandleFunc("/api/", gmusic.RestHandlerV1)
 	http.ListenAndServe(":8080", nil)
 }
 
